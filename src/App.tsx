@@ -14,7 +14,7 @@ const Hero = lazy(() => import("./components/Hero"));
 const About = lazy(() => import("./components/About"));
 const Experience = lazy(() => import("./components/Experience"));
 const Projects = lazy(() => import("./components/Projects"));
-const Skills = lazy(() => import("./components/Skills"));
+const Skills = lazy(() => import("./skills/Skills"));
 const Achievements = lazy(() => import("./components/Achievements"));
 const Contact = lazy(() => import("./components/Contact"));
 

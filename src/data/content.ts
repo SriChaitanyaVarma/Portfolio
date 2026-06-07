@@ -189,61 +189,63 @@ export const floatingTech = [
   "Firebase",
   "Tailwind"
 ];
-export const constellationSkills = [
+export const skillDashboard = [
   {
-    name: "React",
-    level: "Advanced",
-    projects: "10+ Projects",
-    x: "50%",
-    y: "5%"
+    title: "Frontend Systems",
+    level: 95,
+    color: "blue",
+    skills: [
+      "React",
+      "JavaScript",
+      "HTML",
+      "CSS",
+      "Tailwind",
+      "Redux"
+    ]
   },
   {
-    name: "JavaScript",
-    level: "Advanced",
-    projects: "10+ Projects",
-    x: "12%",
-    y: "40%"
+    title: "Backend Systems",
+    level: 80,
+    color: "purple",
+    skills: [
+      "Node.js",
+      "Express.js",
+      "REST APIs"
+    ]
   },
   {
-    name: "Node.js",
-    level: "Intermediate",
-    projects: "5+ Projects",
-    x: "85%",
-    y: "40%"
+    title: "AI / ML",
+    level: 70,
+    color: "orange",
+    skills: [
+      "NLP",
+      "Scikit-learn",
+      "Sentiment Analysis",
+      "Data Preprocessing"
+    ]
   },
   {
-    name: "Tailwind",
-    level: "Advanced",
-    projects: "8+ Projects",
-    x: "25%",
-    y: "20%"
+    title: "Database Systems",
+    level: 75,
+    color: "green",
+    skills: [
+      "MongoDB",
+      "MySQL",
+      "PL/SQL",
+      "Firestore"
+    ]
   },
   {
-    name: "Firebase",
-    level: "Intermediate",
-    projects: "4+ Projects",
-    x: "75%",
-    y: "20%"
-  },
-  {
-    name: "MongoDB",
-    level: "Intermediate",
-    projects: "3+ Projects",
-    x: "75%",
-    y: "70%"
-  },
-  {
-    name: "GitHub",
-    level: "Advanced",
-    projects: "All Projects",
-    x: "25%",
-    y: "70%"
-  },
-  {
-    name: "Express",
-    level: "Intermediate",
-    projects: "Backend APIs",
-    x: "50%",
-    y: "90%"
+    title: "Tools & Workflow",
+    level: 90,
+    color: "cyan",
+    skills: [
+      "Git",
+      "GitHub",
+      "VS Code",
+      "Postman",
+      "Google Colab",
+      "Agile"
+    ]
   }
 ];
