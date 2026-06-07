@@ -1,75 +1,260 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { FiDownload, FiMenu, FiX } from 'react-icons/fi';
-import ThemeToggle from './ThemeToggle';
-import type { Section } from '../types';
+import { useEffect, useState } from "react";
+import { FiDownload, FiMenu, FiX } from "react-icons/fi";
+import type { Section } from "../types";
 
 interface NavbarProps {
   sections: Section[];
-  theme: 'dark' | 'light';
-  toggleTheme: () => void;
   onResumeDownload: () => void;
 }
 
-function Navbar({ sections, theme, toggleTheme, onResumeDownload }: NavbarProps) {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+function Navbar({
+  sections,
+  onResumeDownload,
+}: NavbarProps) {
+  const [scrolled, setScrolled] =
+    useState(false);
+
+  const [menuOpen, setMenuOpen] =
+    useState(false);
+
+  const [activeSection, setActiveSection] =
+    useState("home");
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+
+      const current = sections.find((section) => {
+        const element = document.getElementById(
+          section.id
+        );
+
+        if (!element) return false;
+
+        const rect =
+          element.getBoundingClientRect();
+
+        return (
+          rect.top <= 150 &&
+          rect.bottom >= 150
+        );
+      });
+
+      if (current) {
+        setActiveSection(current.id);
+      }
+    };
+
+    window.addEventListener(
+      "scroll",
+      handleScroll
+    );
+
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+
+    return () =>
+      window.removeEventListener(
+        "scroll",
+        handleScroll
+      );
+  }, [sections]);
 
   return (
-    <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled ? 'backdrop-blur-lg bg-black/50 border-b border-white/10 py-3 shadow-soft' : 'bg-transparent py-5'}`}>
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 xl:px-0">
-        <Link to="/" className="flex items-center gap-3 text-lg font-semibold tracking-[0.12em] text-white transition hover:text-accent">
-          <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-accent shadow-glow">CV</span>
-          Sri Chaitanya
-        </Link>
+    <>
+      <header
+        className={`
+          fixed
+          top-0
+          inset-x-0
+          z-50
+          transition-all
+          duration-300
+          ${
+            scrolled
+              ? "bg-black/70 backdrop-blur-xl border-b border-white/10 py-4"
+              : "bg-transparent py-6"
+          }
+        `}
+      >
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
+          {/* Logo */}
 
-        <nav className="hidden items-center gap-8 lg:flex">
-          {sections.map((section) => (
-            <a key={section.id} href={`#${section.id}`} className="text-sm text-white/70 transition hover:text-white">
-              {section.label}
-            </a>
-          ))}
-          <Link to="/projects" className="text-sm text-white/70 transition hover:text-white">
-            Projects
-          </Link>
-        </nav>
+          <a
+            href="#home"
+            className="flex items-center gap-3"
+          >
+            <div
+              className="
+                flex
+                h-11
+                w-11
+                items-center
+                justify-center
+                rounded-2xl
+                border
+                border-white/10
+                bg-white/5
+                font-bold
+                text-accent
+                backdrop-blur-xl
+              "
+            >
+              SC
+            </div>
 
-        <div className="flex items-center gap-3">
-          <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
-          <a href="/resume.pdf" onClick={onResumeDownload} className="hidden rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white transition hover:border-accent hover:bg-white/10 lg:inline-flex">
-            <FiDownload className="mr-2 inline h-4 w-4" /> Resume
+            <div>
+              <p className="font-semibold text-white">
+                Sri Chaitanya Varma
+              </p>
+
+              <p className="text-xs text-white/50">
+                Software Developer
+              </p>
+            </div>
           </a>
-          <button className="lg:hidden" onClick={() => setMenuOpen((value) => !value)}>
-            {menuOpen ? <FiX className="h-6 w-6" /> : <FiMenu className="h-6 w-6" />}
-          </button>
-        </div>
-      </div>
 
-      <div className={`lg:hidden ${menuOpen ? 'max-h-[420px] opacity-100' : 'max-h-0 opacity-0'} overflow-hidden transition-all duration-300`}>
-        <div className="mx-5 rounded-3xl border border-white/10 bg-[#111111]/95 p-5 shadow-soft backdrop-blur-xl">
-          <div className="flex flex-col gap-4">
+          {/* Desktop Nav */}
+
+          <nav className="hidden items-center gap-8 lg:flex">
             {sections.map((section) => (
-              <a key={section.id} href={`#${section.id}`} className="text-sm text-white/80 transition hover:text-white" onClick={() => setMenuOpen(false)}>
+              <a
+                key={section.id}
+                href={`#${section.id}`}
+                className={`
+                  text-sm
+                  transition
+                  ${
+                    activeSection ===
+                    section.id
+                      ? "text-white"
+                      : "text-white/60 hover:text-white"
+                  }
+                `}
+              >
                 {section.label}
               </a>
             ))}
-            <Link to="/projects" className="text-sm text-white/80 transition hover:text-white" onClick={() => setMenuOpen(false)}>
-              Projects
-            </Link>
-            <a href="/resume.pdf" className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white transition hover:border-accent hover:bg-white/10">
-              <FiDownload className="mr-2 h-4 w-4" /> Resume
+          </nav>
+
+          {/* Right Side */}
+
+          <div className="flex items-center gap-3">
+            <a
+              href="/resume.pdf"
+              download
+              onClick={onResumeDownload}
+              className="
+                hidden
+                lg:inline-flex
+                items-center
+                gap-2
+                rounded-full
+                bg-accent
+                px-5
+                py-3
+                text-sm
+                font-semibold
+                text-slate-950
+                transition
+                hover:bg-accentHover
+              "
+            >
+              <FiDownload />
+              Resume
             </a>
+
+            <button
+              onClick={() =>
+                setMenuOpen(!menuOpen)
+              }
+              className="lg:hidden text-white"
+            >
+              {menuOpen ? (
+                <FiX size={24} />
+              ) : (
+                <FiMenu size={24} />
+              )}
+            </button>
           </div>
         </div>
+      </header>
+
+      {/* Mobile Menu */}
+
+      <div
+        className={`
+          fixed
+          left-4
+          right-4
+          top-24
+          z-40
+          rounded-[28px]
+          border
+          border-white/10
+          bg-[#111111]/95
+          backdrop-blur-xl
+          transition-all
+          duration-300
+          ${
+            menuOpen
+              ? "opacity-100 translate-y-0"
+              : "pointer-events-none opacity-0 -translate-y-4"
+          }
+        `}
+      >
+        <div className="flex flex-col p-6">
+          {sections.map((section) => (
+            <a
+              key={section.id}
+              href={`#${section.id}`}
+              onClick={() =>
+                setMenuOpen(false)
+              }
+              className={`
+                rounded-xl
+                px-4
+                py-3
+                text-sm
+                transition
+                ${
+                  activeSection ===
+                  section.id
+                    ? "bg-white/10 text-white"
+                    : "text-white/70 hover:text-white"
+                }
+              `}
+            >
+              {section.label}
+            </a>
+          ))}
+
+          <a
+            href="/resume.pdf"
+            download
+            onClick={() => {
+              onResumeDownload();
+              setMenuOpen(false);
+            }}
+            className="
+              mt-4
+              inline-flex
+              items-center
+              justify-center
+              gap-2
+              rounded-full
+              bg-accent
+              px-5
+              py-3
+              font-semibold
+              text-slate-950
+            "
+          >
+            <FiDownload />
+            Resume
+          </a>
+        </div>
       </div>
-    </header>
+    </>
   );
 }
 

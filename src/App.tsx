@@ -6,62 +6,48 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollProgress from "./components/ScrollProgress";
 import CommandPalette from "./components/CommandPalette";
-
 import Loader from "./components/Loader";
-import CursorGlow from "./components/CursorGlow";
 
 import { Section } from "./types";
 
 const Hero = lazy(() => import("./components/Hero"));
 const About = lazy(() => import("./components/About"));
-const Skills = lazy(() => import("./components/Skills"));
 const Experience = lazy(() => import("./components/Experience"));
 const Projects = lazy(() => import("./components/Projects"));
+const Skills = lazy(() => import("./components/Skills"));
 const Achievements = lazy(() => import("./components/Achievements"));
-const Testimonials = lazy(() => import("./components/Testimonials"));
 const Contact = lazy(() => import("./components/Contact"));
 
 const sections: Section[] = [
   { id: "home", label: "Home" },
   { id: "about", label: "About" },
-  { id: "skills", label: "Skills" },
   { id: "experience", label: "Experience" },
   { id: "projects", label: "Projects" },
+  { id: "skills", label: "Skills" },
   { id: "achievements", label: "Achievements" },
   { id: "contact", label: "Contact" },
 ];
 
 function App() {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
-  const [resumeClicks, setResumeClicks] = useState(0);
-  const [visitorCount, setVisitorCount] = useState(0);
 
   const location = useLocation();
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem("portfolio-theme");
+    const storedTheme =
+      localStorage.getItem("portfolio-theme");
 
-    setTheme(storedTheme === "light" ? "light" : "dark");
-
-    const visitors =
-      Number(localStorage.getItem("portfolio-visitors")) || 0;
-
-    const updatedVisitors = visitors + 1;
-
-    setVisitorCount(updatedVisitors);
-
-    localStorage.setItem(
-      "portfolio-visitors",
-      String(updatedVisitors)
-    );
-
-    setResumeClicks(
-      Number(localStorage.getItem("resume-downloads")) || 0
+    setTheme(
+      storedTheme === "light" ? "light" : "dark"
     );
   }, []);
 
   useEffect(() => {
-    document.documentElement.classList.remove("dark", "light");
+    document.documentElement.classList.remove(
+      "dark",
+      "light"
+    );
+
     document.documentElement.classList.add(theme);
   }, [theme]);
 
@@ -84,33 +70,22 @@ function App() {
     );
   };
 
-  const onResumeDownload = () => {
-    const current =
-      Number(localStorage.getItem("resume-downloads")) + 1 || 1;
-
-    setResumeClicks(current);
-
-    localStorage.setItem(
-      "resume-downloads",
-      String(current)
-    );
-  };
+  const onResumeDownload = () => {};
 
   return (
     <div
       className="
       min-h-screen
-      font-sans
       bg-[#0A0A0A]
       text-white
-      transition-colors
-      duration-500
-      relative
+      font-sans
       overflow-x-hidden
+      relative
     "
     >
-      {/* Background Effects */}
-      <div className="fixed inset-0 -z-20">
+      {/* Background Blobs */}
+
+      <div className="fixed inset-0 -z-20 pointer-events-none">
         <div className="absolute top-0 left-0 h-[500px] w-[500px] rounded-full bg-blue-500/10 blur-[140px]" />
 
         <div className="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-purple-500/10 blur-[140px]" />
@@ -118,21 +93,14 @@ function App() {
         <div className="absolute left-1/2 top-1/3 h-[400px] w-[400px] -translate-x-1/2 rounded-full bg-cyan-500/5 blur-[120px]" />
       </div>
 
-      {/* Mouse Glow */}
-      <CursorGlow />
-
-      {/* Scroll Progress */}
       <ScrollProgress />
 
-      {/* Navigation */}
       <Navbar
         sections={sections}
-        theme={theme}
-        toggleTheme={toggleTheme}
         onResumeDownload={onResumeDownload}
       />
 
-      <main className="relative">
+      <main>
         <AnimatePresence mode="wait">
           <Routes
             location={location}
@@ -142,10 +110,9 @@ function App() {
               path="/"
               element={
                 <motion.div
-                  layout
                   initial={{
                     opacity: 0,
-                    y: 30,
+                    y: 20,
                   }}
                   animate={{
                     opacity: 1,
@@ -153,11 +120,10 @@ function App() {
                   }}
                   exit={{
                     opacity: 0,
-                    y: -30,
+                    y: -20,
                   }}
                   transition={{
-                    duration: 0.6,
-                    ease: "easeOut",
+                    duration: 0.5,
                   }}
                 >
                   <Suspense fallback={<Loader />}>
@@ -169,15 +135,13 @@ function App() {
 
                     <About />
 
-                    <Skills />
-
                     <Experience />
 
                     <Projects />
 
-                    <Achievements />
+                    <Skills />
 
-                    <Testimonials />
+                    <Achievements />
 
                     <Contact />
                   </Suspense>
@@ -189,11 +153,10 @@ function App() {
               path="/projects"
               element={
                 <motion.div
-                  layout
                   className="min-h-screen pt-28"
                   initial={{
                     opacity: 0,
-                    y: 30,
+                    y: 20,
                   }}
                   animate={{
                     opacity: 1,
@@ -201,11 +164,7 @@ function App() {
                   }}
                   exit={{
                     opacity: 0,
-                    y: -30,
-                  }}
-                  transition={{
-                    duration: 0.6,
-                    ease: "easeOut",
+                    y: -20,
                   }}
                 >
                   <Suspense fallback={<Loader />}>
@@ -218,11 +177,7 @@ function App() {
         </AnimatePresence>
       </main>
 
-      <Footer
-        sections={sections}
-        visitorCount={visitorCount}
-        resumeClicks={resumeClicks}
-      />
+      <Footer/>
 
       <CommandPalette sections={sections} />
     </div>

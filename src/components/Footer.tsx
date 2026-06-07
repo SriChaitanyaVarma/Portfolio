@@ -1,70 +1,200 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
+import {
+  FiGithub,
+  FiLinkedin,
+  FiMail,
+  FiArrowUp,
+} from "react-icons/fi";
 
-interface FooterProps {
-  sections: { id: string; label: string }[];
-  visitorCount: number;
-  resumeClicks: number;
-}
-
-function Footer({ sections: navSections, visitorCount, resumeClicks }: FooterProps) {
+function Footer() {
   return (
-    <motion.footer initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="border-t border-white/10 bg-[#0A0A0A] py-12 px-5 text-white/70 lg:px-10">
-      <div className="mx-auto flex max-w-7xl flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
-        <div className="space-y-4">
-          <p className="text-sm uppercase tracking-[0.3em] text-accent">Sri Chaitanya Varma</p>
-          <p className="max-w-md text-sm leading-7 text-white/60">
-            A recruiter-friendly portfolio built with clean motion, premium dark UI, and a focus on frontend excellence.
-          </p>
-        </div>
+    <footer className="px-6 pb-10 pt-24">
+      <div className="mx-auto max-w-7xl">
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 30,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="
+            rounded-[40px]
+            border
+            border-white/10
+            bg-white/5
+            p-10
+            backdrop-blur-xl
+          "
+        >
+          <div className="grid gap-10 lg:grid-cols-2">
+            {/* Left */}
 
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          <div>
-            <h3 className="mb-4 text-sm uppercase tracking-[0.3em] text-white/50">Quick Links</h3>
-            <div className="space-y-3 text-sm text-white/70">
-              {navSections.map((section) => (
-                <a key={section.id} href={`#${section.id}`} className="block transition hover:text-white">
-                  {section.label}
+            <div>
+              <div
+                className="
+                  inline-flex
+                  h-14
+                  w-14
+                  items-center
+                  justify-center
+                  rounded-2xl
+                  border
+                  border-white/10
+                  bg-white/5
+                  text-lg
+                  font-bold
+                  text-accent
+                "
+              >
+                SC
+              </div>
+
+              <h3 className="mt-6 text-3xl font-bold text-white">
+                Sri Chaitanya Varma
+              </h3>
+
+              <p className="mt-4 max-w-lg leading-8 text-white/70">
+                Frontend Developer focused on
+                building performant, scalable,
+                and user-centric web applications
+                using React and modern
+                JavaScript technologies.
+              </p>
+            </div>
+
+            {/* Right */}
+
+            <div className="flex flex-col justify-between">
+              <div>
+                <h4 className="text-lg font-semibold text-white">
+                  Let's Connect
+                </h4>
+
+                <p className="mt-3 text-white/70">
+                  Open to Frontend Developer
+                  roles, internships, and
+                  exciting software projects.
+                </p>
+              </div>
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a
+                  href="https://github.com/srichaitanyavarma"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="
+                    inline-flex
+                    items-center
+                    gap-2
+                    rounded-full
+                    border
+                    border-white/10
+                    px-5
+                    py-3
+                    text-white
+                    transition
+                    hover:border-accent
+                  "
+                >
+                  <FiGithub />
+                  GitHub
                 </a>
-              ))}
+
+                <a
+                  href="https://linkedin.com/in/srichaitanyavarmamudunoori"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="
+                    inline-flex
+                    items-center
+                    gap-2
+                    rounded-full
+                    border
+                    border-white/10
+                    px-5
+                    py-3
+                    text-white
+                    transition
+                    hover:border-accent
+                  "
+                >
+                  <FiLinkedin />
+                  LinkedIn
+                </a>
+
+                <a
+                  href="mailto:chaitanyavarmamudunoori@gmail.com"
+                  className="
+                    inline-flex
+                    items-center
+                    gap-2
+                    rounded-full
+                    border
+                    border-white/10
+                    px-5
+                    py-3
+                    text-white
+                    transition
+                    hover:border-accent
+                  "
+                >
+                  <FiMail />
+                  Email
+                </a>
+              </div>
             </div>
           </div>
-          <div>
-            <h3 className="mb-4 text-sm uppercase tracking-[0.3em] text-white/50">Social</h3>
-            <div className="space-y-3 text-sm text-white/70">
-              <a href="https://github.com/" target="_blank" rel="noreferrer" className="block transition hover:text-white">
-                GitHub
-              </a>
-              <a href="https://linkedin.com/" target="_blank" rel="noreferrer" className="block transition hover:text-white">
-                LinkedIn
-              </a>
-              <a href="mailto:hello@example.com" className="block transition hover:text-white">
-                Email
-              </a>
-            </div>
-          </div>
-          <div className="space-y-3">
-            <h3 className="mb-4 text-sm uppercase tracking-[0.3em] text-white/50">Live Metrics</h3>
-            <div className="space-y-3 rounded-[1.75rem] border border-white/10 bg-white/5 p-4 text-sm text-white/70">
-              <div className="flex items-center justify-between">
-                <span>Visitors</span>
-                <span className="font-semibold text-white">{visitorCount}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span>Resume downloads</span>
-                <span className="font-semibold text-white">{resumeClicks}</span>
-              </div>
-            </div>
-            <h3 className="text-sm uppercase tracking-[0.3em] text-white/50">Support</h3>
-            <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm text-white transition hover:border-accent hover:bg-white/10">
+
+          {/* Bottom */}
+
+          <div
+            className="
+              mt-10
+              flex
+              flex-col
+              gap-4
+              border-t
+              border-white/10
+              pt-8
+              text-sm
+              text-white/50
+              md:flex-row
+              md:items-center
+              md:justify-between
+            "
+          >
+            <p>
+              © {new Date().getFullYear()} Sri
+              Chaitanya Varma. All rights
+              reserved.
+            </p>
+
+            <button
+              onClick={() =>
+                window.scrollTo({
+                  top: 0,
+                  behavior: "smooth",
+                })
+              }
+              className="
+                inline-flex
+                items-center
+                gap-2
+                transition
+                hover:text-white
+              "
+            >
               Back to Top
+              <FiArrowUp />
             </button>
           </div>
-        </div>
+        </motion.div>
       </div>
-      <div className="mt-10 border-t border-white/10 pt-6 text-center text-sm text-white/50">
-        © {new Date().getFullYear()} Sri Chaitanya Varma. All rights reserved.
-      </div>
-    </motion.footer>
+    </footer>
   );
 }
 

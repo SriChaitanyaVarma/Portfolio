@@ -1,62 +1,179 @@
-import { motion } from 'framer-motion';
-import { skills } from '../data/content';
-import { SiHtml5, SiCss3, SiJavascript, SiReact, SiTailwindcss, SiRedux, SiNodedotjs, SiExpress, SiFirebase, SiMongodb, SiGithub, SiVisualstudiocode, SiPostman } from 'react-icons/si';
-
-const iconMap = {
-  SiHtml5: SiHtml5,
-  SiCss3: SiCss3,
-  SiJavascript: SiJavascript,
-  SiReact: SiReact,
-  SiTailwindcss: SiTailwindcss,
-  SiRedux: SiRedux,
-  SiNodedotjs: SiNodedotjs,
-  SiExpress: SiExpress,
-  SiFirebase: SiFirebase,
-  SiMongodb: SiMongodb,
-  SiGithub: SiGithub,
-  SiVisualstudiocode: SiVisualstudiocode,
-  SiPostman: SiPostman
-};
+import { motion } from "framer-motion";
+import { skills } from "../data/content";
 
 function Skills() {
-  const categories = ['Frontend', 'Backend', 'Database', 'Tools'];
+  const categories = [
+    "Frontend",
+    "Backend",
+    "Database",
+    "Tools",
+  ];
 
   return (
-    <section id="skills" className="px-5 py-24 lg:px-10">
+    <section
+      id="skills"
+      className="px-6 py-24 md:py-32"
+    >
       <div className="mx-auto max-w-7xl">
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
-          <div className="mb-12 max-w-3xl">
-            <p className="text-sm uppercase tracking-[0.3em] text-accent">Skills</p>
-            <h2 className="mt-3 text-4xl font-semibold text-white">Technical expertise in modern tooling.</h2>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-white/75">
-              I use a streamlined stack to build polished, fast, and accessible applications. Each skill reflects the tools I rely on to deliver production-ready experiences.
-            </p>
-          </div>
+        {/* Header */}
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl"
+        >
+          <p className="text-sm uppercase tracking-[0.3em] text-accent">
+            Skills
+          </p>
+
+          <h2 className="mt-4 text-4xl font-bold text-white md:text-5xl">
+            Technologies I use to build
+            modern software.
+          </h2>
+
+          <p className="mt-6 text-lg leading-8 text-white/70">
+            My toolkit spans frontend
+            development, backend services,
+            databases, cloud platforms, and
+            developer productivity tools.
+          </p>
         </motion.div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {categories.map((category) => (
-            <div key={category} className="rounded-[2rem] border border-white/10 bg-[#111111]/90 p-6 shadow-soft">
-              <h3 className="mb-6 text-xl font-semibold text-white">{category}</h3>
-              <div className="space-y-4">
-                {skills.filter((item) => item.category === category).map((skill) => {
-                  const Icon = iconMap[skill.icon as keyof typeof iconMap];
-                  return (
-                    <motion.div whileHover={{ y: -6 }} className="group rounded-3xl border border-white/10 bg-white/5 p-4 transition hover:border-accent hover:bg-white/10" key={skill.name}>
-                      <div className="flex items-center gap-4">
-                        {Icon ? <Icon className="h-6 w-6 text-accent" /> : <span className="inline-block h-6 w-6 rounded-full bg-white/10" />}
-                        <div>
-                          <p className="font-semibold text-white">{skill.name}</p>
-                          <p className="text-sm text-white/60">{skill.level}</p>
-                        </div>
-                      </div>
+        {/* Skill Categories */}
+
+        <div className="mt-16 space-y-8">
+          {categories.map((category, categoryIndex) => (
+            <motion.div
+              key={category}
+              initial={{
+                opacity: 0,
+                y: 30,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.5,
+                delay: categoryIndex * 0.1,
+              }}
+              className="
+                rounded-[32px]
+                border
+                border-white/10
+                bg-white/5
+                p-8
+                backdrop-blur-xl
+              "
+            >
+              <h3 className="text-2xl font-semibold text-white">
+                {category}
+              </h3>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                {skills
+                  .filter(
+                    (skill) =>
+                      skill.category === category
+                  )
+                  .map((skill) => (
+                    <motion.div
+                      key={skill.name}
+                      whileHover={{
+                        y: -4,
+                        scale: 1.03,
+                      }}
+                      className="
+                        rounded-full
+                        border
+                        border-white/10
+                        bg-white/5
+                        px-5
+                        py-3
+                        text-sm
+                        text-white/80
+                        transition
+                        hover:border-accent
+                      "
+                    >
+                      {skill.name}
                     </motion.div>
-                  );
-                })}
+                  ))}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
+
+        {/* Expertise Card */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 30,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="
+            mt-12
+            rounded-[32px]
+            border
+            border-accent/20
+            bg-accent/10
+            p-8
+          "
+        >
+          <h3 className="text-2xl font-semibold text-white">
+            Areas of Focus
+          </h3>
+
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <div className="rounded-2xl bg-white/5 p-5">
+              <h4 className="font-semibold text-white">
+                Frontend Engineering
+              </h4>
+
+              <p className="mt-3 text-sm leading-6 text-white/70">
+                Building responsive,
+                accessible and scalable React
+                applications.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-white/5 p-5">
+              <h4 className="font-semibold text-white">
+                Full Stack Development
+              </h4>
+
+              <p className="mt-3 text-sm leading-6 text-white/70">
+                Creating complete web
+                applications with modern APIs
+                and databases.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-white/5 p-5">
+              <h4 className="font-semibold text-white">
+                AI & Problem Solving
+              </h4>
+
+              <p className="mt-3 text-sm leading-6 text-white/70">
+                Applying machine learning and
+                software engineering to
+                real-world challenges.
+              </p>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

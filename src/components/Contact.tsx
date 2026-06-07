@@ -1,106 +1,378 @@
-import { FormEvent, useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import emailjs from '@emailjs/browser';
+import { FormEvent, useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import {
+  FiGithub,
+  FiLinkedin,
+  FiMail,
+  FiMapPin,
+  FiDownload,
+} from "react-icons/fi";
+import emailjs from "@emailjs/browser";
 
-const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_x';
-const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_x';
-const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'public_x';
+const SERVICE_ID =
+  import.meta.env.VITE_EMAILJS_SERVICE_ID || "";
+
+const TEMPLATE_ID =
+  import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "";
+
+const PUBLIC_KEY =
+  import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "";
 
 function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const [status, setStatus] = useState<
+    "idle" | "sending" | "success" | "error"
+  >("idle");
 
   useEffect(() => {
-    if (!SERVICE_ID.includes('service_')) return;
-    emailjs.init(PUBLIC_KEY);
+    if (PUBLIC_KEY) {
+      emailjs.init(PUBLIC_KEY);
+    }
   }, []);
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    event: FormEvent<HTMLFormElement>
+  ) => {
     event.preventDefault();
-    setStatus('sending');
+
+    setStatus("sending");
+
     try {
-      await emailjs.send(SERVICE_ID, TEMPLATE_ID, form);
-      setStatus('success');
-      setForm({ name: '', email: '', subject: '', message: '' });
-    } catch (error) {
-      setStatus('error');
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        form
+      );
+
+      setStatus("success");
+
+      setForm({
+        name: "",
+        email: "",
+        message: "",
+      });
+    } catch {
+      setStatus("error");
     }
   };
 
   return (
-    <section id="contact" className="px-5 py-24 lg:px-10">
+    <section
+      id="contact"
+      className="px-6 py-24 md:py-32"
+    >
       <div className="mx-auto max-w-7xl">
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
-          <div className="mb-12 max-w-3xl">
-            <p className="text-sm uppercase tracking-[0.3em] text-accent">Contact</p>
-            <h2 className="mt-3 text-4xl font-semibold text-white">Let&apos;s connect on your next product initiative.</h2>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-white/75">
-              Send a message if you are looking for a frontend engineer who can deliver high-quality interfaces with speed, structure, and polish.
-            </p>
-          </div>
+        {/* Header */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 30,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl"
+        >
+          <p className="text-sm uppercase tracking-[0.3em] text-accent">
+            Contact
+          </p>
+
+          <h2 className="mt-4 text-4xl font-bold text-white md:text-5xl">
+            Interested in working together?
+          </h2>
+
+          <p className="mt-6 text-lg leading-8 text-white/70">
+            Whether it's a frontend role,
+            internship opportunity, freelance
+            project, or collaboration, I'd love
+            to hear from you.
+          </p>
         </motion.div>
 
-        <div className="grid gap-10 lg:grid-cols-[1fr_400px]">
-          <motion.form initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} onSubmit={handleSubmit} className="space-y-6 rounded-[2rem] border border-white/10 bg-[#111111]/90 p-8 shadow-soft">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <label className="space-y-2 text-sm text-white/70">
-                <span>Name</span>
-                <input value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} required className="w-full rounded-3xl border border-white/10 bg-[#0f172a]/90 px-4 py-3 text-white outline-none transition focus:border-accent" />
-              </label>
-              <label className="space-y-2 text-sm text-white/70">
-                <span>Email</span>
-                <input type="email" value={form.email} onChange={(event) => setForm({ ...form, email: event.target.value })} required className="w-full rounded-3xl border border-white/10 bg-[#0f172a]/90 px-4 py-3 text-white outline-none transition focus:border-accent" />
-              </label>
-            </div>
-            <label className="space-y-2 text-sm text-white/70">
-              <span>Subject</span>
-              <input value={form.subject} onChange={(event) => setForm({ ...form, subject: event.target.value })} required className="w-full rounded-3xl border border-white/10 bg-[#0f172a]/90 px-4 py-3 text-white outline-none transition focus:border-accent" />
-            </label>
-            <label className="space-y-2 text-sm text-white/70">
-              <span>Message</span>
-              <textarea value={form.message} onChange={(event) => setForm({ ...form, message: event.target.value })} required rows={6} className="w-full rounded-3xl border border-white/10 bg-[#0f172a]/90 px-4 py-3 text-white outline-none transition focus:border-accent" />
-            </label>
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <button type="submit" className="inline-flex items-center justify-center rounded-full bg-accent px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-accentHover">
-                Let&apos;s Connect
+        <div className="mt-16 grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+          {/* Form */}
+
+          <motion.form
+            onSubmit={handleSubmit}
+            initial={{
+              opacity: 0,
+              x: -20,
+            }}
+            whileInView={{
+              opacity: 1,
+              x: 0,
+            }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="
+              rounded-[32px]
+              border
+              border-white/10
+              bg-white/5
+              p-8
+              backdrop-blur-xl
+            "
+          >
+            <div className="space-y-5">
+              <div>
+                <label className="mb-2 block text-sm text-white/60">
+                  Name
+                </label>
+
+                <input
+                  required
+                  value={form.name}
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      name: e.target.value,
+                    })
+                  }
+                  className="
+                    w-full
+                    rounded-2xl
+                    border
+                    border-white/10
+                    bg-black/20
+                    px-4
+                    py-4
+                    text-white
+                    outline-none
+                    transition
+                    focus:border-accent
+                  "
+                />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-sm text-white/60">
+                  Email
+                </label>
+
+                <input
+                  required
+                  type="email"
+                  value={form.email}
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      email: e.target.value,
+                    })
+                  }
+                  className="
+                    w-full
+                    rounded-2xl
+                    border
+                    border-white/10
+                    bg-black/20
+                    px-4
+                    py-4
+                    text-white
+                    outline-none
+                    transition
+                    focus:border-accent
+                  "
+                />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-sm text-white/60">
+                  Message
+                </label>
+
+                <textarea
+                  rows={6}
+                  required
+                  value={form.message}
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      message: e.target.value,
+                    })
+                  }
+                  className="
+                    w-full
+                    rounded-2xl
+                    border
+                    border-white/10
+                    bg-black/20
+                    px-4
+                    py-4
+                    text-white
+                    outline-none
+                    transition
+                    focus:border-accent
+                  "
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="
+                  w-full
+                  rounded-2xl
+                  bg-accent
+                  py-4
+                  font-semibold
+                  text-slate-950
+                  transition
+                  hover:bg-accentHover
+                "
+              >
+                Send Message
               </button>
-              <p className="text-sm text-white/60">
-                {status === 'success' && 'Message sent — I will reply soon.'}
-                {status === 'error' && 'Something went wrong. Please try again later.'}
-                {status === 'sending' && 'Sending message...'}
-              </p>
+
+              {status === "sending" && (
+                <p className="text-sm text-white/60">
+                  Sending...
+                </p>
+              )}
+
+              {status === "success" && (
+                <p className="text-sm text-green-400">
+                  Message sent successfully.
+                </p>
+              )}
+
+              {status === "error" && (
+                <p className="text-sm text-red-400">
+                  Something went wrong.
+                </p>
+              )}
             </div>
           </motion.form>
 
-          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="rounded-[2rem] border border-white/10 bg-[#111111]/90 p-8 shadow-soft">
-            <div className="space-y-5 text-white/75">
-              <div>
-                <p className="text-sm uppercase tracking-[0.3em] text-accent">Reach Out</p>
-                <h3 className="mt-3 text-2xl font-semibold text-white">Ready to build something impactful.</h3>
+          {/* Contact Card */}
+
+          <motion.div
+            initial={{
+              opacity: 0,
+              x: 20,
+            }}
+            whileInView={{
+              opacity: 1,
+              x: 0,
+            }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="
+              rounded-[32px]
+              border
+              border-white/10
+              bg-white/5
+              p-8
+              backdrop-blur-xl
+            "
+          >
+            <h3 className="text-2xl font-semibold text-white">
+              Let's Build Something Great
+            </h3>
+
+            <p className="mt-4 leading-8 text-white/70">
+              I enjoy building modern web
+              applications with React,
+              JavaScript, TypeScript, and
+              scalable frontend architecture.
+            </p>
+
+            <div className="mt-8 space-y-5">
+              <div className="flex items-center gap-4">
+                <FiMail className="text-accent" />
+
+                <span className="text-white/80">
+                  chaitanyavarmamudunoori@gmail.com
+                </span>
               </div>
-              <div className="grid gap-4 rounded-[1.75rem] border border-white/10 bg-white/5 p-6">
-                <div>
-                  <p className="text-sm text-white/50">Email</p>
-                  <p className="mt-2 text-base text-white">hello@example.com</p>
-                </div>
-                <div>
-                  <p className="text-sm text-white/50">Availability</p>
-                  <p className="mt-2 text-base text-white">Open to internships and frontend roles.</p>
-                </div>
+
+              <div className="flex items-center gap-4">
+                <FiMapPin className="text-accent" />
+
+                <span className="text-white/80">
+                  Andhra Pradesh, India
+                </span>
               </div>
-              <div className="rounded-[1.75rem] border border-white/10 bg-[#0b1120]/80 p-6">
-                <p className="text-sm uppercase tracking-[0.3em] text-accent">Quick metrics</p>
-                <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                  <div className="rounded-3xl bg-white/5 p-4 text-sm text-white/80">
-                    <p className="font-semibold text-white">Fast response</p>
-                    <p className="mt-2">Typically replies within 24 hours.</p>
-                  </div>
-                  <div className="rounded-3xl bg-white/5 p-4 text-sm text-white/80">
-                    <p className="font-semibold text-white">EmailJS ready</p>
-                    <p className="mt-2">Configure VITE_EMAILJS_* values in .env.</p>
-                  </div>
-                </div>
+
+              <div className="rounded-2xl border border-white/10 p-5">
+                <p className="text-sm text-white/50">
+                  Availability
+                </p>
+
+                <p className="mt-2 text-white">
+                  Open to Full-Time Roles,
+                  Frontend Positions &
+                  Internships.
+                </p>
               </div>
+            </div>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href="https://linkedin.com/in/srichaitanyavarmamudunoori"
+                target="_blank"
+                rel="noreferrer"
+                className="
+                  inline-flex
+                  items-center
+                  gap-2
+                  rounded-full
+                  border
+                  border-white/10
+                  px-4
+                  py-3
+                  text-white
+                "
+              >
+                <FiLinkedin />
+                LinkedIn
+              </a>
+
+              <a
+                href="https://github.com/srichaitanyavarma"
+                target="_blank"
+                rel="noreferrer"
+                className="
+                  inline-flex
+                  items-center
+                  gap-2
+                  rounded-full
+                  border
+                  border-white/10
+                  px-4
+                  py-3
+                  text-white
+                "
+              >
+                <FiGithub />
+                GitHub
+              </a>
+
+              <a
+                href="/resume.pdf"
+                download
+                className="
+                  inline-flex
+                  items-center
+                  gap-2
+                  rounded-full
+                  bg-accent
+                  px-4
+                  py-3
+                  font-semibold
+                  text-slate-950
+                "
+              >
+                <FiDownload />
+                Resume
+              </a>
             </div>
           </motion.div>
         </div>

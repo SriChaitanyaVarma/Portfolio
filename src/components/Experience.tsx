@@ -1,40 +1,171 @@
-import { motion } from 'framer-motion';
-import { experience } from '../data/content';
+import { motion } from "framer-motion";
+import { experience } from "../data/content";
 
 function Experience() {
+  const internship = experience[0];
+
   return (
-    <section id="experience" className="px-5 py-24 lg:px-10">
+    <section
+      id="experience"
+      className="px-6 py-24 md:py-32"
+    >
       <div className="mx-auto max-w-7xl">
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
-          <div className="mb-12 max-w-3xl">
-            <p className="text-sm uppercase tracking-[0.3em] text-accent">Experience</p>
-            <h2 className="mt-3 text-4xl font-semibold text-white">A timeline of fast-moving frontend growth.</h2>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-white/75">
-              My internship and project experience focuses on shipping clean code, fixing UI issues, and improving frontend performance in production contexts.
-            </p>
-          </div>
+        {/* Section Header */}
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl"
+        >
+          <p className="text-sm uppercase tracking-[0.3em] text-accent">
+            Experience
+          </p>
+
+          <h2 className="mt-4 text-4xl font-bold text-white md:text-5xl">
+            Professional experience building
+            real-world software.
+          </h2>
+
+          <p className="mt-6 text-lg leading-8 text-white/70">
+            My internship experience provided
+            exposure to production-grade development,
+            reusable architecture, API integration,
+            and performance-focused frontend
+            engineering.
+          </p>
         </motion.div>
 
-        <div className="space-y-10">
-          {experience.map((item, index) => (
-            <motion.div key={item.role} initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: index * 0.1 }} className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#111111]/90 p-8 shadow-soft before:absolute before:left-8 before:top-8 before:h-3 before:w-3 before:rounded-full before:bg-accent before:shadow-[0_0_0_10px_rgba(59,130,246,0.13)] lg:before:left-1/2 lg:before:-translate-x-1/2">
-              <div className="grid gap-6 lg:grid-cols-[220px_1fr] lg:items-start">
-                <div className="space-y-3">
-                  <p className="text-sm uppercase tracking-[0.3em] text-accent">{item.company}</p>
-                  <h3 className="text-2xl font-semibold text-white">{item.role}</h3>
-                  <p className="text-sm text-white/60">{item.period}</p>
-                </div>
-                <div className="space-y-3 text-white/75">
-                  {item.bulletPoints.map((bullet) => (
-                    <p key={bullet} className="rounded-3xl border border-white/10 bg-white/5 p-4">
-                      {bullet}
-                    </p>
+        {/* Experience Card */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 30,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="
+            mt-16
+            rounded-[32px]
+            border
+            border-white/10
+            bg-white/5
+            p-8
+            backdrop-blur-xl
+          "
+        >
+          <div className="grid gap-10 lg:grid-cols-[320px_1fr]">
+            {/* Left Side */}
+
+            <div>
+              <div className="inline-flex rounded-full bg-accent/10 px-4 py-2 text-sm font-medium text-accent">
+                Internship
+              </div>
+
+              <h3 className="mt-5 text-3xl font-bold text-white">
+                {internship.role}
+              </h3>
+
+              <p className="mt-3 text-lg text-white/70">
+                {internship.company}
+              </p>
+
+              <p className="mt-2 text-sm text-white/50">
+                {internship.period}
+              </p>
+
+              <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-5">
+                <h4 className="font-semibold text-white">
+                  Key Technologies
+                </h4>
+
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {[
+                    "React",
+                    "JavaScript",
+                    "REST APIs",
+                    "Git",
+                    "Frontend Development",
+                  ].map((tech) => (
+                    <span
+                      key={tech}
+                      className="
+                        rounded-full
+                        border
+                        border-white/10
+                        px-3
+                        py-1
+                        text-sm
+                        text-white/70
+                      "
+                    >
+                      {tech}
+                    </span>
                   ))}
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </div>
+            </div>
+
+            {/* Right Side */}
+
+            <div>
+              <h4 className="text-xl font-semibold text-white">
+                Responsibilities & Contributions
+              </h4>
+
+              <div className="mt-6 space-y-4">
+                {internship.bulletPoints.map((point) => (
+                  <div
+                    key={point}
+                    className="
+                      rounded-2xl
+                      border
+                      border-white/10
+                      bg-white/5
+                      p-5
+                    "
+                  >
+                    <p className="leading-7 text-white/70">
+                      {point}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div
+                className="
+                  mt-8
+                  rounded-2xl
+                  border
+                  border-accent/20
+                  bg-accent/10
+                  p-6
+                "
+              >
+                <h4 className="font-semibold text-white">
+                  Key Outcome
+                </h4>
+
+                <p className="mt-3 leading-7 text-white/70">
+                  Contributed to modern React-based
+                  applications while gaining practical
+                  experience in scalable frontend
+                  architecture, API integration, and
+                  collaborative software development.
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

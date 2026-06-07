@@ -1,60 +1,198 @@
-import { motion } from 'framer-motion';
-import { stats } from '../data/content';
+import { motion } from "framer-motion";
+import { stats } from "../data/content";
 
 function About() {
+  const timeline = [
+    {
+      year: "2022",
+      title: "Started B.Tech CSE",
+      description:
+        "Began my Computer Science journey with a strong interest in software development and problem solving.",
+    },
+    {
+      year: "2025",
+      title: "GATE 2025 Qualified",
+      description:
+        "Successfully qualified the Graduate Aptitude Test in Engineering and strengthened core CS fundamentals.",
+    },
+    {
+      year: "2026",
+      title: "Software Development Internship",
+      description:
+        "Worked on real-world React applications, API integrations, reusable components, and frontend optimization.",
+    },
+    {
+      year: "2026",
+      title: "GATE 2026 Qualified",
+      description:
+        "Qualified GATE for the second consecutive year while maintaining academic excellence and project development.",
+    },
+  ];
+
   return (
-    <section id="about" className="px-5 py-24 lg:px-10">
+    <section
+      id="about"
+      className="px-6 py-24 md:py-32"
+    >
       <div className="mx-auto max-w-7xl">
-        <motion.div initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
-          <div className="mb-12 max-w-3xl">
-            <p className="text-sm uppercase tracking-[0.3em] text-accent">About</p>
-            <h2 className="mt-3 text-4xl font-semibold text-white">A thoughtful approach to modern frontend systems.</h2>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-white/75">
-              I am a Computer Science Engineering student with internship experience and full-stack project delivery. I focus on transforming design systems into responsive, accessible, and performance-minded products.
-            </p>
-          </div>
+        {/* Section Heading */}
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl"
+        >
+          <p className="text-sm uppercase tracking-[0.3em] text-accent">
+            About Me
+          </p>
+
+          <h2 className="mt-4 text-4xl font-bold text-white md:text-5xl">
+            Building software with curiosity,
+            consistency and purpose.
+          </h2>
+
+          <p className="mt-6 text-lg leading-8 text-white/70">
+            I'm a Computer Science Engineering student,
+            Software Development Intern, and aspiring
+            Software Engineer. My journey combines strong
+            academic performance, competitive examinations,
+            real-world development experience, and a
+            passion for building impactful products.
+          </p>
         </motion.div>
 
-        <div className="grid gap-10 lg:grid-cols-[360px_1fr] lg:items-start">
-          <motion.div initial={{ opacity: 0, x: -32 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="rounded-[2rem] border border-white/10 bg-[#111111]/95 p-6 shadow-soft backdrop-blur-xl">
-            <div className="h-[420px] rounded-[1.75rem] bg-gradient-to-br from-accent/10 via-transparent to-white/5 p-6">
-              <div className="flex h-full flex-col items-center justify-center gap-5 rounded-[1.5rem] border border-white/10 bg-[#0b1120]/90 p-6 text-center">
-                <div className="h-32 w-32 rounded-full bg-white/5 ring-1 ring-white/10" />
-                <div>
-                  <h3 className="text-2xl font-semibold text-white">Sri Chaitanya</h3>
-                  <p className="mt-2 text-sm uppercase tracking-[0.25em] text-white/50">Computer Science Student</p>
-                </div>
-                <p className="text-sm leading-7 text-white/70">
-                  I build frontend systems with a premium product mindset, polished animation, and careful performance tuning.
-                </p>
-              </div>
+        {/* Stats */}
+
+        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {stats.map((item) => (
+            <motion.div
+              key={item.label}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="
+                rounded-[32px]
+                border
+                border-white/10
+                bg-white/5
+                p-6
+                backdrop-blur-xl
+              "
+            >
+              <h3 className="text-3xl font-bold text-white">
+                {item.value}
+              </h3>
+
+              <p className="mt-2 text-white/60">
+                {item.label}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Journey Timeline */}
+
+        <div className="mt-20 grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+          {/* Left Card */}
+
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{
+              opacity: 1,
+              x: 0,
+            }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="
+              rounded-[32px]
+              border
+              border-white/10
+              bg-white/5
+              p-8
+              backdrop-blur-xl
+            "
+          >
+            <h3 className="text-2xl font-semibold text-white">
+              What drives me
+            </h3>
+
+            <div className="mt-6 space-y-5 text-white/70 leading-8">
+              <p>
+                I enjoy turning ideas into software that
+                solves real-world problems. Whether it's
+                designing modern web applications,
+                building AI-powered systems, or improving
+                user experiences, I focus on creating
+                practical and meaningful solutions.
+              </p>
+
+              <p>
+                My interests span software engineering,
+                frontend development, machine learning,
+                and scalable application architecture.
+              </p>
+
+              <p>
+                I believe great products are built through
+                continuous learning, collaboration, and
+                attention to detail.
+              </p>
             </div>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, x: 32 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="space-y-8">
-            <div className="grid gap-6 md:grid-cols-2">
-              {stats.map((item) => (
-                <div key={item.label} className="rounded-3xl border border-white/10 bg-[#111111]/90 p-6 text-white shadow-soft">
-                  <p className="text-3xl font-semibold text-white">{item.value}</p>
-                  <p className="mt-3 text-sm text-white/60">{item.label}</p>
+          {/* Timeline */}
+
+          <div className="space-y-6">
+            {timeline.map((item, index) => (
+              <motion.div
+                key={item.title}
+                initial={{
+                  opacity: 0,
+                  x: 20,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  x: 0,
+                }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.1,
+                }}
+                className="
+                  rounded-[32px]
+                  border
+                  border-white/10
+                  bg-white/5
+                  p-6
+                  backdrop-blur-xl
+                "
+              >
+                <div className="flex items-center gap-4">
+                  <span className="rounded-full bg-accent/10 px-4 py-2 text-sm font-medium text-accent">
+                    {item.year}
+                  </span>
+
+                  <h3 className="text-lg font-semibold text-white">
+                    {item.title}
+                  </h3>
                 </div>
-              ))}
-            </div>
-            <div className="rounded-[2rem] border border-white/10 bg-[#111111]/90 p-8 shadow-soft">
-              <h3 className="text-2xl font-semibold text-white">Why I build products this way</h3>
-              <div className="mt-6 space-y-5 text-sm leading-7 text-white/75">
-                <p>
-                  I approach engineering with both design sensitivity and technical discipline, delivering interfaces that look premium and behave reliably across devices.
+
+                <p className="mt-4 leading-7 text-white/70">
+                  {item.description}
                 </p>
-                <p>
-                  My workflow includes rapid prototyping, performance-first development, and close collaboration with cross-functional teams to ship polished features.
-                </p>
-                <p>
-                  I enjoy solving problems with elegant code, progressive enhancement, and a strong focus on recruiter-facing clarity.
-                </p>
-              </div>
-            </div>
-          </motion.div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

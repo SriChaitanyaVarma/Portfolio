@@ -1,23 +1,68 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 function ScrollProgress() {
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] =
+    useState(0);
 
   useEffect(() => {
-    const updateProgress = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.body.scrollHeight - window.innerHeight;
-      setProgress(docHeight > 0 ? (scrollTop / docHeight) * 100 : 0);
+    const handleScroll = () => {
+      const scrollTop =
+        window.scrollY;
+
+      const scrollHeight =
+        document.documentElement
+          .scrollHeight -
+        window.innerHeight;
+
+      const percent =
+        (scrollTop / scrollHeight) *
+        100;
+
+      setProgress(percent);
     };
-    window.addEventListener('scroll', updateProgress);
-    updateProgress();
-    return () => window.removeEventListener('scroll', updateProgress);
+
+    window.addEventListener(
+      "scroll",
+      handleScroll
+    );
+
+    handleScroll();
+
+    return () =>
+      window.removeEventListener(
+        "scroll",
+        handleScroll
+      );
   }, []);
 
   return (
-    <div className="fixed inset-x-0 top-0 z-50 h-1 overflow-hidden bg-transparent">
-      <div className="h-full bg-gradient-to-r from-accent to-accentAlt transition-all duration-150" style={{ width: `${progress}%` }} />
-    </div>
+    <div
+  className="
+    relative
+    h-full
+    bg-gradient-to-r
+    from-blue-500
+    via-cyan-400
+    to-purple-500
+    transition-[width]
+    duration-150
+  "
+  style={{
+    width: `${progress}%`,
+  }}
+>
+  <div
+    className="
+      absolute
+      inset-0
+      blur-md
+      bg-gradient-to-r
+      from-blue-500
+      via-cyan-400
+      to-purple-500
+    "
+  />
+</div>
   );
 }
 

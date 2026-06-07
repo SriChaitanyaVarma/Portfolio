@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+ import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiArrowRight, FiDownload, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
 import { SiLeetcode } from 'react-icons/si';
@@ -39,7 +39,7 @@ function Hero({ onResumeDownload }: HeroProps) {
             Sri Chaitanya Varma
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-white/80">
-            Frontend Developer | React Developer | Problem Solver. Building modern web experiences with React, JavaScript, and scalable software solutions.
+            Frontend Developer | React Developer | Problem Solver.Building modern web experiences with React, JavaScript, and scalable software solutions.
           </p>
 
           <div className="mt-10 flex flex-wrap gap-4">
@@ -96,18 +96,6 @@ function Hero({ onResumeDownload }: HeroProps) {
                 </div>
               ))}
             </div>
-          </div>
-
-          <div className="mt-8 grid grid-cols-3 gap-4">
-            {floatingTech.slice(0, 3).map((tech) => (
-              <motion.div key={tech} whileHover={{ y: -8 }} className="rounded-3xl border border-white/10 bg-[#111111]/90 px-4 py-4 text-center text-sm text-white/80 shadow-soft">
-                {tech}
-              </motion.div>
-            ))}
-            <motion.div whileHover={{ y: -8 }} className="rounded-3xl border border-white/10 bg-[#111111]/90 px-4 py-4 text-center text-sm text-white/80 shadow-soft sm:col-span-3">
-              <div className="font-semibold text-white">Modern product UI</div>
-              <div className="mt-2 text-xs text-white/60">Refined layout, motion, and polished interaction tokens.</div>
-            </motion.div>
           </div>
         </motion.div>
       </div>

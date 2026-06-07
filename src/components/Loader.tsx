@@ -1,45 +1,78 @@
-// src/components/Loader.tsx
-
 import { motion } from "framer-motion";
 
-const Loader = () => {
+function Loader() {
   return (
     <div
       className="
-      fixed
-      inset-0
-      z-[9999]
-      bg-[#0A0A0A]
-      flex
-      items-center
-      justify-center
-    "
+        fixed
+        inset-0
+        z-[9999]
+        flex
+        items-center
+        justify-center
+        bg-[#0A0A0A]
+      "
     >
       <div className="text-center">
+        <motion.div
+          initial={{
+            opacity: 0,
+            scale: 0.9,
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+          }}
+          transition={{
+            duration: 0.6,
+          }}
+        >
+          <div
+            className="
+              inline-flex
+              h-20
+              w-20
+              items-center
+              justify-center
+              rounded-3xl
+              border
+              border-white/10
+              bg-white/5
+              backdrop-blur-xl
+            "
+          >
+            <span
+              className="
+                text-2xl
+                font-bold
+                text-white
+              "
+            >
+              SC
+            </span>
+          </div>
+        </motion.div>
+
         <motion.h1
           initial={{
             opacity: 0,
-            y: 20,
+            y: 10,
           }}
           animate={{
             opacity: 1,
             y: 0,
           }}
           transition={{
-            duration: 0.7,
+            delay: 0.2,
           }}
           className="
-            text-5xl
-            font-bold
-            bg-gradient-to-r
-            from-blue-400
-            via-cyan-400
-            to-purple-400
-            bg-clip-text
-            text-transparent
+            mt-6
+            text-2xl
+            font-semibold
+            text-white
           "
         >
-          CV
+          Sri Chaitanya Varma
         </motion.h1>
 
         <motion.p
@@ -53,38 +86,37 @@ const Loader = () => {
             delay: 0.4,
           }}
           className="
-            mt-4
-            text-zinc-400
-            tracking-widest
-            uppercase
+            mt-2
+            text-sm
+            text-white/50
           "
         >
-          Sri Chaitanya Varma
+          Software Developer • React Developer
         </motion.p>
 
-        <motion.div
-          initial={{
-            width: 0,
-          }}
-          animate={{
-            width: "180px",
-          }}
-          transition={{
-            duration: 1.2,
-          }}
-          className="
-            h-[3px]
-            bg-gradient-to-r
-            from-blue-500
-            to-purple-500
-            mx-auto
-            mt-6
-            rounded-full
-          "
-        />
+        <div className="mt-8 flex justify-center">
+          <motion.div
+            animate={{
+              rotate: 360,
+            }}
+            transition={{
+              repeat: Infinity,
+              duration: 1.2,
+              ease: "linear",
+            }}
+            className="
+              h-6
+              w-6
+              rounded-full
+              border-2
+              border-accent
+              border-t-transparent
+            "
+          />
+        </div>
       </div>
     </div>
   );
-};
+}
 
 export default Loader;
